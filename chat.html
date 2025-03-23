@@ -1,71 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voiceflow Chatbot Demo</title>
+    <title>My Awesome Chatbot 🧠</title>
     <style>
-        body, html {
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
         }
-        #content {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
+        }
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem;
             text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 0;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .content {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-right: 2rem;
+        }
+        .chatbot-container {
+            flex: 1;
+            min-width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+            .content {
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="content">
-        <h1>Welcome to Our Website</h1>
-        <p>Our AI assistant is here to help you. On desktop, it will open automatically.</p>
+    <header>
+        <div class="container">
+            <h1>Welcome to My Awesome Chatbot</h1>
+        </div>
+    </header>
+    <div class="container">
+        <main>
+            <section class="content">
+                <h2>About My Chatbot</h2>
+                <p>Welcome to my amazing chatbot! This AI-powered assistant is here to help you with any questions you might have. Feel free to ask about our products, services, or just chat about your day.</p>
+                <h2>Features</h2>
+                <ul>
+                    <li>24/7 availability</li>
+                    <li>Instant responses</li>
+                    <li>Personalized assistance</li>
+                    <li>Multilingual support</li>
+                </ul>
+                <p>Don't hesitate to start a conversation with our chatbot. It's always ready to assist you!</p>
+            </section>
+            <section class="chatbot-container">
+                <!-- The chatbot will be loaded here -->
+            </section>
+        </main>
     </div>
 
     <script type="text/javascript">
-    (function(d, t) {
-        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-        v.onload = function() {
-            if (window.innerWidth >= 1024) {
-                const chatbotOpenedBefore = sessionStorage.getItem('chatbotOpened');
-                if (!chatbotOpenedBefore) {
-                    window.voiceflow.chat.load({
-                        verify: { projectID: '67dfd7068ef7fa02101c7173' },
-                        url: 'https://general-runtime.voiceflow.com',
-                        versionID: 'production',
-                        voice: {
-                            url: "https://runtime-api.voiceflow.com"
-                        },
-                        launch: true,
-                        fullscreen: true,
-                        autoFocus: true,
-                        render: {
-                            mode: 'popover',
-                        },
-                    });
-                    sessionStorage.setItem('chatbotOpened', 'true');
-                }
-            } else {
-                // For mobile devices, load the chat without auto-launching
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
                 window.voiceflow.chat.load({
                     verify: { projectID: '67dfd7068ef7fa02101c7173' },
                     url: 'https://general-runtime.voiceflow.com',
                     versionID: 'production',
                     voice: {
                         url: "https://runtime-api.voiceflow.com"
-                    },
-                    render: {
-                        mode: 'popover',
-                    },
+                    }
                 });
             }
-        };
-        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-        v.type = "text/javascript";
-        s.parentNode.insertBefore(v, s);
-    })(document, 'script');
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
     </script>
 </body>
 </html>
