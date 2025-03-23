@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הצ'אטבוט המדהים שלי</title>
+    <title>Voiceflow Chatbot Demo</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #content {
+            padding: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <div id="content">
+        <h1>Welcome to Our Website</h1>
+        <p>Our AI assistant is here to help you. On desktop, it will open automatically.</p>
+    </div>
+
     <script type="text/javascript">
-        (function(d, t) {
-            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-            v.onload = function() {
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+            if (window.innerWidth >= 1024) {
+                const chatbotOpenedBefore = sessionStorage.getItem('chatbotOpened');
+                if (!chatbotOpenedBefore) {
+                    window.voiceflow.chat.load({
+                        verify: { projectID: '67dfd7068ef7fa02101c7173' },
+                        url: 'https://general-runtime.voiceflow.com',
+                        versionID: 'production',
+                        voice: {
+                            url: "https://runtime-api.voiceflow.com"
+                        },
+                        launch: true,
+                        fullscreen: true,
+                        autoFocus: true,
+                        render: {
+                            mode: 'popover',
+                        },
+                    });
+                    sessionStorage.setItem('chatbotOpened', 'true');
+                }
+            } else {
+                // For mobile devices, load the chat without auto-launching
                 window.voiceflow.chat.load({
                     verify: { projectID: '67dfd7068ef7fa02101c7173' },
                     url: 'https://general-runtime.voiceflow.com',
@@ -26,13 +56,16 @@
                     voice: {
                         url: "https://runtime-api.voiceflow.com"
                     },
-                    launch: true,
-                    fullscreen: true,
-                    autoFocus: true
+                    render: {
+                        mode: 'popover',
+                    },
                 });
             }
-            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-        })(document, 'script');
+        };
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+        v.type = "text/javascript";
+        s.parentNode.insertBefore(v, s);
+    })(document, 'script');
     </script>
 </body>
 </html>
