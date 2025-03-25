@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Voiceflow Chat Test</h1>
-    <button id="startChat">Start Chat</button>
+    <button id="triggerWebhook">Trigger Make.com Webhook</button>
     
     <script type="text/javascript">
     (function(d, t) {
@@ -20,33 +20,40 @@
                 voice: {
                     url: "https://runtime-api.voiceflow.com"
                 }
-            }).then(() => {
-                document.getElementById('startChat').addEventListener('click', () => {
-                    window.voiceflow.chat.open();
-                    window.voiceflow.chat.interact({ type: 'launch' });
-                    
-                    // Call Make.com webhook
-                    fetch('https://hook.eu2.make.com/va3fniln8nao1crp2ie1wgydsq7rvja1', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ action: 'start_chat' }),
-                    })
-                    .then(response => {
-                        console.log('Webhook response:', response);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.text();
-                    })
-                    .then(data => console.log('Webhook success:', data))
-                    .catch(error => console.error('Webhook error:', error));
-                });
             });
         }
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
     })(document, 'script');
+
+    // Function to trigger the Make.com webhook
+    function triggerMakeWebhook() {
+        fetch('https://hook.eu2.make.com/va3fniln8nao1crp2ie1wgydsq7rvja1', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ action: 'start_chat' }),
+        })
+        .then(response => {
+            console.log('Webhook response:', response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Webhook success:', data);
+            // Only open the chat after successful webhook trigger
+            window.voiceflow.chat.open();
+            window.voiceflow.chat.interact({ type: 'launch' });
+        })
+        .catch(error => console.error('Webhook error:', error));
+    }
+
+    // Add event listener to the button
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('triggerWebhook').addEventListener('click', triggerMakeWebhook);
+    });
     </script>
 </body>
 </html>
