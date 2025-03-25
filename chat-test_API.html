@@ -16,24 +16,36 @@
             window.voiceflow.chat.load({
                 verify: { projectID: '67dfd7068ef7fa02101c7173' },
                 url: 'https://general-runtime.voiceflow.com',
-                versionID: 'production'
+                versionID: 'production',
+                voice: {
+                    url: "https://runtime-api.voiceflow.com"
+                }
             }).then(() => {
                 document.getElementById('startChat').addEventListener('click', () => {
                     window.voiceflow.chat.open();
                     window.voiceflow.chat.interact({ type: 'launch' });
                     
                     // Call Make.com webhook
-                    fetch('https://hook.eu2.make.com/mmeyykbuqmfphi1u20fhcg37tv7lugmn', {
+                    fetch('https://hook.eu2.make.com/va3fniln8nao1crp2ie1wgydsq7rvja1', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ action: 'start_chat' }),
-                    });
+                    })
+                    .then(response => {
+                        console.log('Webhook response:', response);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => console.log('Webhook success:', data))
+                    .catch(error => console.error('Webhook error:', error));
                 });
             });
         }
-        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
     })(document, 'script');
     </script>
 </body>
