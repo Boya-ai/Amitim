@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voiceflow Chat Test</title>
+</head>
+<body>
+    <h1>Voiceflow Chat Test</h1>
+    <button id="startChat">Start Chat</button>
+    
+    <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+            window.voiceflow.chat.load({
+                verify: { projectID: '67dfd7068ef7fa02101c7173' },
+                url: 'https://general-runtime.voiceflow.com',
+                versionID: 'production'
+            }).then(() => {
+                document.getElementById('startChat').addEventListener('click', () => {
+                    window.voiceflow.chat.open();
+                    window.voiceflow.chat.interact({ type: 'launch' });
+                    
+                    // Call Make.com webhook
+                    fetch('https://hook.eu2.make.com/mmeyykbuqmfphi1u20fhcg37tv7lugmn', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ action: 'start_chat' }),
+                    });
+                });
+            });
+        }
+        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+    </script>
+</body>
+</html>
