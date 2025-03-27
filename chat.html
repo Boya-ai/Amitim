@@ -52,6 +52,17 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             overflow: hidden;
         }
+        /* ✅ RTL List Fix */
+        ul, ol {
+            padding-right: 1.2em;
+            list-style-position: inside;
+            direction: rtl;
+        }
+
+        li {
+            text-align: right;
+        }
+
         @media (max-width: 768px) {
             main {
                 flex-direction: column;
@@ -75,7 +86,7 @@
                 <h2>על הצ'אטבוט שלי</h2>
                 <p>ברוכים הבאים לצ'אטבוט המדהים שלי! העוזר המופעל על ידי בינה מלאכותית כאן כדי לעזור לכם עם כל שאלה שיש לכם. אל תהססו לשאול על המוצרים והשירותים שלנו, או פשוט לשוחח על היום שלכם.</p>
                 <h2>תכונות</h2>
-                <ul dir="rtl">
+                <ul>
                     <li>זמינות 24/7</li>
                     <li>תשובות מיידיות</li>
                     <li>סיוע מותאם אישית</li>
