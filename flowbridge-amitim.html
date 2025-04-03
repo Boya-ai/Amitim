@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amitim AI Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.1), transparent 50%);
+            z-index: 1;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3a8a;
+            z-index: 10;
+        }
+        
+        .content {
+            text-align: center;
+            z-index: 5;
+            max-width: 600px;
+            padding: 20px;
+        }
+        
+        .content h1 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .content p {
+            color: #1e3a8a;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            z-index: 0;
+        }
+        
+        .pulse-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.6);
+            animation: pulse 2s infinite;
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        .pulse-circle:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .pulse-circle:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .pulse-circle:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+    <!-- New Flowbridge Chat Widget Script -->
+    <script type='text/javascript'>
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '67dfd7068ef7fa02101c7173' },
+                    url: 'https://boya.flowbridge.app/api/webchat/2/',
+                    assistant: {
+                        stylesheet: 'https://boya.flowbridge.app/api/webchat/2/css'
+                    },
+                    versionID: 'production'
+                });
+            }
+            v.src = 'https://flowbridge-chat-assets.s3.eu-west-3.amazonaws.com/bundle/flowbridge-chat-v1.mjs'; v.type = 'text/javascript'; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
+</head>
+<body>
+    <div class="gradient-overlay"></div>
+    
+    <div class="logo">עמיתים</div>
+    
+    <div class="pulse">
+        <div class="pulse-circle" style="width: 100%; height: 100%;"></div>
+        <div class="pulse-circle" style="width: 100%; height: 100%;"></div>
+        <div class="pulse-circle" style="width: 100%; height: 100%;"></div>
+    </div>
+    
+    <div class="content">
+        <h1>צ'אטבוט AI סימולציה</h1>
+        <p>עמיתים ניהול הסדרים פנסיונים</p>
+    </div>
+    
+    <!-- The Flowbridge chat widget will be injected automatically by the script -->
+</body>
+</html>
